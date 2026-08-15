@@ -1,6 +1,6 @@
 # CONTRATEI
 
-> Conectando alunos e professores particulares de forma simples, rápida e acessível.
+> Conectando alunos e profissionais da educação de forma simples, rápida e acessível.
 
 O **CONTRATEI** é uma aplicação desenvolvida para facilitar a busca por **professores particulares**, aproximando profissionais da educação de pessoas que procuram aulas e acompanhamento personalizado.
 
@@ -14,8 +14,8 @@ A plataforma permite que professores informem suas especialidades, disponibilize
 
 |       Integrante         |       RA       |     Função     |                  
 | ------------------------ | -------------- | -------------- |
-| **A**                    |  00.000.000-0  | P.O / SM / DEV |
-| **B**                    |  00.000.000-0  | P.O / SM / DEV |
+| **Aline Rocha de Jeuss** |  22.123.106-1  | P.O / SM / DEV |
+| **Bianca Silva Oliveira**|  22.123.113-7  | P.O / SM / DEV |
 | **Camila Laurindo Reis** |  22.222.037-8  | P.O / SM / DEV |
 
 ---
