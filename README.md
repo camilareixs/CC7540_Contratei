@@ -14,9 +14,9 @@ A plataforma permite que professores informem suas especialidades, disponibilize
 
 |       Integrante         |       RA       |     Função     |                  
 | ------------------------ | -------------- | -------------- |
-| **Aline Rocha de Jeuss** |  22.123.106-1  | P.O / SM / DEV |
-| **Bianca Silva Oliveira**|  22.123.113-7  | P.O / SM / DEV |
-| **Camila Laurindo Reis** |  22.222.037-8  | P.O / SM / DEV |
+| **Aline Rocha de Jeuss** |  22.123.106-1  | Scrum Master   |
+| **Bianca Silva Oliveira**|  22.123.113-7  | Product Owner  |
+| **Camila Laurindo Reis** |  22.222.037-8  | Desenvolvedora |
 
 ---
 
