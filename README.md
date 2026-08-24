@@ -10,6 +10,8 @@ A plataforma permite que professores informem suas especialidades, disponibilize
 
 ## Sobre a equipe
 
+> Link do Trello: https://trello.com/b/dDayLIxS/cc7540contratei
+
 ### Integrantes
 
 |       Integrante         |       RA       |     Função     |                  
