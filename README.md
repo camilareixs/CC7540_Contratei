@@ -36,6 +36,18 @@ O aplicativo busca reduzir as dificuldades encontradas durante a procura por pro
 
 ---
 
+## Definition of Done (DoD)
+
+A funcionalidade foi implementada, integrada, testada e atende aos critérios de aceitação.
+
+---
+
+## Evidência do início da Sprint
+
+<img width="1912" height="828" alt="image" src="https://github.com/user-attachments/assets/a300464e-6917-4d2f-a6fc-e03d2b8a2f53" />
+
+---
+
 ## Solução
 
 > Em construção.
@@ -51,6 +63,5 @@ O aplicativo busca reduzir as dificuldades encontradas durante a procura por pro
 ## Tecnologias
 
 > Em construção.
-
 
 </div>
