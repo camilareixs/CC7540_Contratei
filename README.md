@@ -48,6 +48,12 @@ A funcionalidade foi implementada, integrada, testada e atende aos critérios de
 
 ---
 
+## Evidência da Sprint1
+
+<img width="1912" height="869" alt="image" src="https://github.com/user-attachments/assets/18701940-1024-4cb6-ad00-c3d728251062" />
+
+---
+
 ## Solução
 
 > Em construção.
