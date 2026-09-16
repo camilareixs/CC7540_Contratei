@@ -1,5 +1,5 @@
-import Landing from '@/components/app-shell'
+import AppShell from '@/components/app-shell'
 
 export default function Page() {
-  return <Landing />
+  return <AppShell path="/" />
 }
