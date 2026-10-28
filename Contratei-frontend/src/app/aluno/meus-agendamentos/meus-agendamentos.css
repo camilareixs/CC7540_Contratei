@@ -1,0 +1,549 @@
+:host {
+  display: block;
+  min-height: 100%;
+  color: #183252;
+}
+
+.pagina-agendamentos {
+  min-height: 100vh;
+  padding: 34px 22px 55px;
+  background: #f2f7fc;
+}
+
+.container-agendamentos {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.etiqueta {
+  color: #28835e;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+.cabecalho h1 {
+  margin: 8px 0;
+  color: #173454;
+  font-size: 29px;
+  font-weight: 850;
+  letter-spacing: -0.7px;
+}
+
+.cabecalho p {
+  margin: 0;
+  color: #77869b;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.botao-buscar {
+  display: inline-flex;
+  min-height: 43px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 17px;
+  border: 1px solid #173d70;
+  border-radius: 9px;
+  background: #173d70;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 750;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.botao-buscar:hover {
+  transform: translateY(-1px);
+  background: #24538a;
+}
+
+.botao-buscar span {
+  font-size: 19px;
+  line-height: 1;
+}
+
+.resumo-contadores {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 17px;
+  margin-bottom: 25px;
+}
+
+.contador {
+  display: flex;
+  min-height: 95px;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+  border: 1px solid #e8eef5;
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: 0 4px 16px rgb(34 62 92 / 3%);
+}
+
+.contador-icone {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 12px;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.contador-icone.azul {
+  background: #eaf2ff;
+  color: #326ab3;
+}
+
+.contador-icone.verde {
+  background: #e7f7ee;
+  color: #2b8b59;
+}
+
+.contador-icone.roxo {
+  background: #f0edff;
+  color: #7760bb;
+}
+
+.contador > div:last-child {
+  display: grid;
+  gap: 6px;
+}
+
+.contador span {
+  color: #75849a;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.contador strong {
+  color: #1a3657;
+  font-size: 24px;
+  font-weight: 850;
+  line-height: 1;
+}
+
+.painel-listagem {
+  overflow: hidden;
+  border: 1px solid #e6edf5;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 5px 22px rgb(31 62 98 / 3%);
+}
+
+.cabecalho-listagem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 23px 25px;
+  border-bottom: 1px solid #edf1f6;
+}
+
+.cabecalho-listagem h2 {
+  margin: 0 0 6px;
+  color: #193655;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.cabecalho-listagem p {
+  margin: 0;
+  color: #8390a3;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.filtros {
+  display: flex;
+  flex-shrink: 0;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 9px;
+  background: #f2f5f9;
+}
+
+.filtros button {
+  min-height: 32px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #718198;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.filtros button:hover {
+  color: #25496f;
+}
+
+.filtros button.ativo {
+  background: #fff;
+  color: #1d4679;
+  box-shadow: 0 1px 4px rgb(25 52 84 / 9%);
+}
+
+.lista-agendamentos {
+  display: grid;
+}
+
+.card-agendamento {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 23px 25px;
+  border-bottom: 1px solid #edf1f6;
+}
+
+.card-agendamento:last-child {
+  border-bottom: none;
+}
+
+.data-card {
+  display: flex;
+  width: 67px;
+  min-width: 67px;
+  min-height: 82px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border: 1px solid #e0eaf6;
+  border-radius: 11px;
+  background: #f4f8ff;
+}
+
+.data-dia {
+  color: #214c82;
+  font-size: 25px;
+  font-weight: 850;
+  line-height: 1.1;
+}
+
+.data-mes {
+  color: #42648c;
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.data-ano {
+  color: #8798ad;
+  font-size: 9px;
+}
+
+.informacoes-agendamento {
+  min-width: 0;
+  flex: 1;
+}
+
+.titulo-agendamento {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.titulo-agendamento h3 {
+  margin: 2px 0 0;
+  color: #1b3555;
+  font-size: 15px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.status {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 9px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.status-ponto {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.status-confirmado {
+  background: #e8f7ee;
+  color: #267a4a;
+}
+
+.status-pendente {
+  background: #fff5e4;
+  color: #9a681a;
+}
+
+.status-recusado {
+  background: #fff0ef;
+  color: #b13c36;
+}
+
+.profissional-linha {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profissional-linha img,
+.avatar-fallback {
+  display: grid;
+  width: 39px;
+  height: 39px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.avatar-fallback {
+  background: #eaf1fb;
+  color: #315b90;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.profissional-linha > div:last-child {
+  display: grid;
+  gap: 4px;
+}
+
+.rotulo {
+  color: #8491a3;
+  font-size: 10px;
+}
+
+.profissional-linha strong {
+  color: #344b67;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.detalhes-agendamento {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 20px;
+  margin-top: 17px;
+  color: #718197;
+  font-size: 11px;
+}
+
+.detalhes-agendamento > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.detalhe-icone {
+  color: #547ba7;
+  font-size: 15px;
+}
+
+.detalhes-agendamento .valor {
+  margin-left: auto;
+  color: #1b4779;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.aviso-pendente,
+.aviso-recusado {
+  margin: 13px 0 0;
+  padding: 9px 11px;
+  border-radius: 7px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.aviso-pendente {
+  background: #fff9ed;
+  color: #90641f;
+}
+
+.aviso-recusado {
+  background: #fff5f4;
+  color: #a23d36;
+}
+
+.estado-vazio {
+  display: flex;
+  min-height: 300px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 22px;
+  text-align: center;
+}
+
+.vazio-icone {
+  display: grid;
+  width: 76px;
+  height: 76px;
+  margin-bottom: 18px;
+  place-items: center;
+  border-radius: 22px;
+  background: #eef5ff;
+  color: #3d6fa9;
+}
+
+.vazio-icone svg {
+  width: 43px;
+  height: 43px;
+}
+
+.estado-vazio h3 {
+  margin: 0 0 9px;
+  color: #1d3858;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.estado-vazio p {
+  max-width: 340px;
+  margin: 0 0 21px;
+  color: #7c8ba0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.botao-vazio {
+  min-height: 41px;
+}
+
+.profissional-linha {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profissional-linha > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detalhes-agendamento > span {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 850px) {
+  .resumo-contadores {
+    gap: 10px;
+  }
+
+  .contador {
+    gap: 10px;
+    padding: 15px;
+  }
+
+  .contador-icone {
+    width: 38px;
+    height: 38px;
+  }
+
+  .cabecalho-listagem {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  .pagina-agendamentos {
+    padding: 24px 13px 38px;
+  }
+
+  .cabecalho {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 17px;
+  }
+
+  .cabecalho h1 {
+    font-size: 25px;
+  }
+
+  .resumo-contadores {
+    grid-template-columns: 1fr;
+  }
+
+  .contador {
+    min-height: 75px;
+    padding: 13px 16px;
+  }
+
+  .contador strong {
+    font-size: 21px;
+  }
+
+  .cabecalho-listagem {
+    padding: 19px 16px;
+  }
+
+  .filtros {
+    width: 100%;
+  }
+
+  .filtros button {
+    flex: 1;
+    padding: 0 7px;
+  }
+
+  .card-agendamento {
+    gap: 12px;
+    padding: 19px 14px;
+  }
+
+  .data-card {
+    width: 54px;
+    min-width: 54px;
+    min-height: 72px;
+  }
+
+  .data-dia {
+    font-size: 21px;
+  }
+
+  .titulo-agendamento {
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .titulo-agendamento h3 {
+    font-size: 14px;
+  }
+
+  .detalhes-agendamento {
+    gap: 10px 13px;
+  }
+
+  .detalhes-agendamento .valor {
+    width: 100%;
+    margin-left: 0;
+  }
+}

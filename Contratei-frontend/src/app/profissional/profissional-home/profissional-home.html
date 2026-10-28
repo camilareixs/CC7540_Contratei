@@ -1,0 +1,769 @@
+<div *ngIf="carregando" class="content-card">
+  Carregando seu perfil profissional...
+</div>
+
+<div *ngIf="erro" class="content-card form-error">
+  {{ erro }}
+</div>
+
+<section class="profile-page" *ngIf="!carregando && !erro">
+  <div class="page-heading">
+    <div>
+      <span class="eyebrow">SUA ÁREA PROFISSIONAL</span>
+      <h1>Olá, {{ profissional.nome }}! 👋</h1>
+      <p>Este é o seu espaço para apresentar seu trabalho e organizar seus serviços.</p>
+    </div>
+
+    <button type="button" class="primary-button" (click)="editarPerfil()">
+      <span aria-hidden="true">✎</span>
+      Editar perfil
+    </button>
+  </div>
+  
+  <!-- Formulário do perfil complementar -->
+  <section
+    class="content-card profile-edit-card"
+    *ngIf="mostrarFormularioPerfil"
+  >
+    <div class="section-heading">
+      <div>
+        <span class="section-kicker">SEUS DADOS PROFISSIONAIS</span>
+        <h2>
+          {{ perfilComplementar ? 'Editar perfil profissional' : 'Completar perfil profissional' }}
+        </h2>
+      </div>
+    </div>
+
+    <p class="profile-form-description">
+      Informe seus dados de contato, endereço e experiência para apresentar melhor seu trabalho.
+    </p>
+
+    <div
+      *ngIf="erroPerfilComplementar"
+      class="profile-feedback profile-error"
+      role="alert"
+    >
+      {{ erroPerfilComplementar }}
+    </div>
+
+    <div
+      *ngIf="mensagemPerfilComplementar"
+      class="profile-feedback profile-success"
+      role="status"
+    >
+      {{ mensagemPerfilComplementar }}
+    </div>
+
+    <form (ngSubmit)="salvarPerfilComplementar()" #formPerfil="ngForm">
+      <h3 class="profile-form-section-title">Contato</h3>
+
+      <div class="profile-form-grid">
+        <div class="profile-form-field">
+          <label for="perfilTelefone">Telefone *</label>
+          <input
+            id="perfilTelefone"
+            type="tel"
+            name="phone"
+            [(ngModel)]="formularioPerfil.phone"
+            maxlength="30"
+            autocomplete="tel"
+            required
+            [disabled]="salvandoPerfilComplementar"
+          />
+        </div>
+
+        <div class="profile-form-field">
+          <label for="perfilCep">CEP *</label>
+          <input
+            id="perfilCep"
+            type="text"
+            name="postalCode"
+            [(ngModel)]="formularioPerfil.postalCode"
+            maxlength="9"
+            placeholder="00000-000"
+            autocomplete="postal-code"
+            required
+            [disabled]="salvandoPerfilComplementar"
+          />
+        </div>
+      </div>
+
+      <h3 class="profile-form-section-title">Endereço</h3>
+
+      <div class="profile-form-grid">
+        <div class="profile-form-field profile-form-wide">
+          <label for="perfilRua">Rua / Avenida *</label>
+          <input
+            id="perfilRua"
+            type="text"
+            name="street"
+            [(ngModel)]="formularioPerfil.street"
+            maxlength="200"
+            autocomplete="address-line1"
+            required
+            [disabled]="salvandoPerfilComplementar"
+          />
+        </div>
+
+        <div class="profile-form-field">
+          <label for="perfilNumero">Número *</label>
+          <input
+            id="perfilNumero"
+            type="text"
+            name="streetNumber"
+            [(ngModel)]="formularioPerfil.streetNumber"
+            maxlength="30"
+            required
+            [disabled]="salvandoPerfilComplementar"
+          />
+        </div>
+
+        <div class="profile-form-field">
+          <label for="perfilBairro">Bairro *</label>
+          <input
+            id="perfilBairro"
+            type="text"
+            name="neighborhood"
+            [(ngModel)]="formularioPerfil.neighborhood"
+            maxlength="100"
+            autocomplete="address-level3"
+            required
+            [disabled]="salvandoPerfilComplementar"
+          />
+        </div>
+
+        <div class="profile-form-field">
+          <label for="perfilCidade">Cidade *</label>
+          <input
+            id="perfilCidade"
+            type="text"
+            name="city"
+            [(ngModel)]="formularioPerfil.city"
+            maxlength="100"
+            autocomplete="address-level2"
+            required
+            [disabled]="salvandoPerfilComplementar"
+          />
+        </div>
+
+        <div class="profile-form-field">
+          <label for="perfilEstado">Estado *</label>
+          <input
+            id="perfilEstado"
+            type="text"
+            name="state"
+            [(ngModel)]="formularioPerfil.state"
+            maxlength="100"
+            autocomplete="address-level1"
+            required
+            [disabled]="salvandoPerfilComplementar"
+          />
+        </div>
+
+        <div class="profile-form-field">
+          <label for="perfilPais">País *</label>
+          <input
+            id="perfilPais"
+            type="text"
+            name="country"
+            [(ngModel)]="formularioPerfil.country"
+            maxlength="100"
+            autocomplete="country-name"
+            required
+            [disabled]="salvandoPerfilComplementar"
+          />
+        </div>
+      </div>
+
+      <h3 class="profile-form-section-title">Atuação profissional</h3>
+
+      <div class="profile-form-grid">
+        <div class="profile-form-field profile-form-wide">
+          <label for="perfilArea">Área profissional principal *</label>
+          <select
+            id="perfilArea"
+            name="professionalAreaId"
+            [(ngModel)]="formularioPerfil.professionalAreaId"
+            required
+            [disabled]="salvandoPerfilComplementar || areasProfissionais.length === 0"
+          >
+            <option [ngValue]="0" disabled>Selecione sua área</option>
+            <option
+              *ngFor="let area of areasProfissionais"
+              [ngValue]="area.id"
+            >
+              {{ area.name }}
+            </option>
+          </select>
+          <small *ngIf="areasProfissionais.length === 0">
+            Nenhuma área disponível para seleção.
+          </small>
+        </div>
+
+        <div class="profile-form-field">
+          <label for="perfilExperiencia">Anos de experiência *</label>
+          <input
+            id="perfilExperiencia"
+            type="number"
+            name="experienceYears"
+            [(ngModel)]="formularioPerfil.experienceYears"
+            min="0"
+            max="80"
+            step="1"
+            required
+            [disabled]="salvandoPerfilComplementar"
+          />
+        </div>
+
+        <div class="profile-form-field profile-form-wide">
+          <label for="perfilDescricao">Apresentação profissional *</label>
+          <textarea
+            id="perfilDescricao"
+            name="description"
+            [(ngModel)]="formularioPerfil.description"
+            rows="5"
+            maxlength="500"
+            placeholder="Conte sobre sua experiência, sua forma de trabalhar e o que você oferece."
+            required
+            [disabled]="salvandoPerfilComplementar"
+          ></textarea>
+          <small>
+            {{ formularioPerfil.description.length }}/500 caracteres
+          </small>
+        </div>
+      </div>
+
+      <h3 class="profile-form-section-title">Matérias e conteúdos</h3>
+
+      <p class="profile-form-description">
+        Adicione os temas específicos que você ensina ou atende.
+      </p>
+
+      <div class="profile-topic-entry">
+        <input
+          type="text"
+          name="novoTopico"
+          [(ngModel)]="novoTopico"
+          maxlength="100"
+          placeholder="Ex.: Matemática financeira"
+          aria-label="Nome do novo tópico"
+          [disabled]="salvandoPerfilComplementar"
+          (keydown.enter)="$event.preventDefault(); adicionarTopicoLocal()"
+        />
+
+        <button
+          type="button"
+          class="profile-topic-add"
+          (click)="adicionarTopicoLocal()"
+          [disabled]="salvandoPerfilComplementar || !novoTopico.trim()"
+        >
+          + Adicionar
+        </button>
+      </div>
+
+      <div
+        class="profile-topic-list"
+        *ngIf="formularioPerfil.topics.length > 0"
+      >
+        <div
+          class="profile-topic-chip"
+          *ngFor="let topico of formularioPerfil.topics; let i = index"
+        >
+          <span>{{ topico }}</span>
+          <button
+            type="button"
+            (click)="removerTopicoLocal(i)"
+            [disabled]="salvandoPerfilComplementar"
+            [attr.aria-label]="'Remover tópico ' + topico"
+            title="Remover tópico"
+          >
+            ×
+          </button>
+        </div>
+      </div>
+
+      <p
+        class="profile-topic-empty"
+        *ngIf="formularioPerfil.topics.length === 0"
+      >
+        Nenhum tópico adicionado.
+      </p>
+
+      <div class="profile-form-actions">
+        <button
+          type="submit"
+          class="primary-button"
+          [disabled]="salvandoPerfilComplementar || !formPerfil.valid"
+        >
+          {{
+            salvandoPerfilComplementar
+              ? 'Salvando...'
+              : 'Salvar perfil'
+          }}
+        </button>
+
+        <button
+          type="button"
+          class="profile-cancel-button"
+          (click)="cancelarEdicaoPerfil()"
+          [disabled]="salvandoPerfilComplementar"
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <section class="profile-banner">
+    <div class="profile-identity">
+      <div class="large-avatar">
+        <img
+          *ngIf="profissional.foto"
+          [src]="profissional.foto"
+          [alt]="'Foto de ' + profissional.nome"
+        />
+
+        <span *ngIf="!profissional.foto" aria-hidden="true">
+          {{ profissional.nome.charAt(0).toUpperCase() }}
+        </span>
+      </div>
+
+      <div class="identity-info">
+        <span class="profile-label">PERFIL PROFISSIONAL</span>
+        <h2>{{ profissional.nome }}</h2>
+        <p>{{ profissional.especialidade }}</p>
+
+        <span
+          class="availability-badge"
+          [class.unavailable]="!perfilCompletoParaAtendimento"
+        >
+          <span class="status-dot"></span>
+
+          {{
+            perfilCompletoParaAtendimento
+              ? 'Disponível para atendimentos'
+              : 'Complete seu perfil para poder receber atendimentos'
+          }}
+        </span>
+      </div>
+    </div>
+
+    <div class="banner-location">
+      <span class="location-icon" aria-hidden="true">⌖</span>
+      <div>
+        <small>Localização</small>
+        <strong>{{ localizacao || 'Não informada' }}</strong>
+      </div>
+    </div>
+  </section>
+
+  <div class="profile-grid">
+    <div class="main-column">
+      <section class="content-card">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">APRESENTAÇÃO</span>
+            <h2>Sobre mim</h2>
+          </div>
+          <button
+            type="button"
+            class="text-button"
+            (click)="editarPerfil()"
+          >
+            Editar
+          </button>
+        </div>
+
+        <p class="description">{{ profissional.apresentacao }}</p>
+
+        <div class="contact-list">
+          <div class="contact-item">
+            <span class="contact-icon" aria-hidden="true">☎</span>
+            <div>
+              <small>Telefone</small>
+              <strong>{{ profissional.telefone }}</strong>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <span class="contact-icon" aria-hidden="true">⌖</span>
+            <div>
+              <small>Cidade de atendimento</small>
+              <strong>{{ localizacao || 'Não informada' }}</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section
+        class="content-card"
+        *ngIf="!mostrarFormularioPerfil && perfilComplementar"
+      >
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">MINHA ESPECIALIDADE</span>
+            <h2>Áreas de conhecimento</h2>
+          </div>
+          <button
+            type="button"
+            class="text-button"
+            (click)="editarPerfil()"
+          >
+            Editar
+          </button>
+        </div>
+
+        <p class="profile-topic-summary">
+          <strong>Área principal:</strong>
+          {{ perfilComplementar.professionalAreaName }}
+        </p>
+
+        <p class="profile-topic-summary">
+          <strong>Experiência:</strong>
+          {{ perfilComplementar.experienceYears }}
+          {{ perfilComplementar.experienceYears === 1 ? 'ano' : 'anos' }}
+        </p>
+
+        <div class="profile-topic-list">
+          <span
+            class="profile-topic-chip profile-topic-readonly"
+            *ngFor="let topico of perfilComplementar.topics"
+          >
+            {{ topico }}
+          </span>
+
+          <p
+            class="profile-topic-empty"
+            *ngIf="perfilComplementar.topics.length === 0"
+          >
+            Nenhum tópico cadastrado.
+          </p>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">O QUE VOCÊ OFERECE</span>
+            <h2>Meus serviços</h2>
+          </div>
+        </div>
+
+        <article class="service-card" *ngFor="let servico of servicos">
+          <div class="service-icon" aria-hidden="true">▤</div>
+
+          <div class="service-content">
+            <h3>{{ servico.nome }}</h3>
+            <p>{{ servico.descricao }}</p>
+
+            <span class="modality-badge">
+              {{ servico.modalidade }}
+            </span>
+          </div>
+
+          <div class="service-price">
+            <small>Valor</small>
+            <strong>{{ formatarPreco(servico.preco) }}</strong>
+          </div>
+        </article>
+
+        <div class="empty-services" *ngIf="servicos.length === 0 && !erroServicos">
+          <p>Você ainda não possui serviços ativos cadastrados.</p>
+        </div>
+
+        <div class="empty-services" *ngIf="erroServicos">
+          <p class="form-error">{{ erroServicos }}</p>
+        </div>
+      </section>
+
+      <div class="service-management">
+        <div class="service-management-heading">
+          <button
+            type="button"
+            class="primary-button"
+            (click)="abrirFormularioServico()"
+            [disabled]="mostrarFormularioServico"
+          >
+            + Adicionar serviço
+          </button>
+        </div>
+
+        <p
+          class="service-feedback service-success"
+          *ngIf="mensagemCadastroServico"
+          role="status"
+        >
+          {{ mensagemCadastroServico }}
+        </p>
+
+        <p
+          class="service-feedback service-error"
+          *ngIf="erroCadastroServico"
+          role="alert"
+        >
+          {{ erroCadastroServico }}
+        </p>
+
+        <form
+          class="service-form"
+          *ngIf="mostrarFormularioServico"
+          (ngSubmit)="salvarServico()"
+        >
+          <h3>Cadastrar meu serviço</h3>
+
+          <div class="service-form-field">
+            <label for="nomeServico">Nome do serviço</label>
+            <input
+              id="nomeServico"
+              type="text"
+              name="nomeServico"
+              [(ngModel)]="nomeServico"
+              placeholder="Ex.: Aula particular de balé"
+              maxlength="150"
+              required
+              [disabled]="salvandoServico"
+            />
+          </div>
+
+          <div class="service-form-field">
+            <label for="descricaoServico">Descrição</label>
+            <textarea
+              id="descricaoServico"
+              name="descricaoServico"
+              [(ngModel)]="descricaoServico"
+              placeholder="Descreva o serviço, o que está incluído e para quem é indicado."
+              rows="4"
+              maxlength="2000"
+              [disabled]="salvandoServico"
+            ></textarea>
+          </div>
+
+          <div class="service-form-grid">
+            <div class="service-form-field">
+              <label for="precoServico">Preço (R$)</label>
+              <input
+                id="precoServico"
+                type="number"
+                name="precoServico"
+                [(ngModel)]="precoServico"
+                min="0"
+                step="0.01"
+                placeholder="Ex.: 100,00"
+                required
+                [disabled]="salvandoServico"
+              />
+            </div>
+
+            <div class="service-form-field">
+              <label for="duracaoServico">Duração (minutos)</label>
+              <input
+                id="duracaoServico"
+                type="number"
+                name="duracaoServico"
+                [(ngModel)]="duracaoServico"
+                min="1"
+                step="1"
+                required
+                [disabled]="salvandoServico"
+              />
+            </div>
+          </div>
+
+          <div class="service-form-actions">
+            <button
+              type="submit"
+              class="primary-button"
+              [disabled]="salvandoServico"
+            >
+              {{ salvandoServico ? 'Cadastrando...' : 'Cadastrar serviço' }}
+            </button>
+
+            <button
+              type="button"
+              class="service-cancel-button"
+              (click)="cancelarFormularioServico()"
+              [disabled]="salvandoServico"
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <aside class="side-column">
+      <section class="content-card availability-card">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">SUA AGENDA</span>
+            <h2>Disponibilidade</h2>
+          </div>
+        </div>
+
+        <p class="side-description">
+          Horários em que você pode realizar atendimentos.
+        </p>
+
+        <div
+          class="availability-row"
+          *ngFor="let item of disponibilidade"
+        >
+          <span>{{ item.dia }}</span>
+          <strong>{{ item.horario }}</strong>
+        </div>
+
+        <div
+          class="empty-services"
+          *ngIf="disponibilidade.length === 0"
+        >
+          <p>Você não possui horários futuros disponíveis.</p>
+        </div>
+      </section>
+      
+      <section class="content-card agenda-management">
+        <div class="section-heading">
+          <div>
+            <h2>Gerenciar agenda</h2>
+            <p>Cadastre horários e controle sua disponibilidade.</p>
+          </div>
+
+          <button
+            type="button"
+            class="primary-button"
+            (click)="abrirFormularioHorario()"
+            [disabled]="mostrarFormularioHorario"
+          >
+            + Novo horário
+          </button>
+        </div>
+
+        <div
+          class="agenda-message agenda-success"
+          *ngIf="mensagemAgenda"
+          role="status"
+        >
+          {{ mensagemAgenda }}
+        </div>
+
+        <div
+          class="agenda-message agenda-error"
+          *ngIf="erroAgenda"
+          role="alert"
+        >
+          {{ erroAgenda }}
+        </div>
+
+        <form
+          class="agenda-form"
+          *ngIf="mostrarFormularioHorario"
+          (ngSubmit)="salvarHorario()"
+        >
+          <h3>Cadastrar disponibilidade</h3>
+
+          <div class="agenda-form-grid">
+            <div class="agenda-field">
+              <label for="dataHoraInicio">Data e hora de início</label>
+              <input
+                id="dataHoraInicio"
+                type="datetime-local"
+                name="dataHoraInicio"
+                [(ngModel)]="dataHoraInicio"
+                required
+              />
+            </div>
+
+            <div class="agenda-field">
+              <label for="dataHoraFim">Data e hora de término</label>
+              <input
+                id="dataHoraFim"
+                type="datetime-local"
+                name="dataHoraFim"
+                [(ngModel)]="dataHoraFim"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="agenda-form-actions">
+            <button
+              type="submit"
+              class="primary-button"
+              [disabled]="salvandoHorario"
+            >
+              {{ salvandoHorario ? 'Salvando...' : 'Salvar horário' }}
+            </button>
+
+            <button
+              type="button"
+              class="agenda-cancel-button"
+              [disabled]="salvandoHorario"
+              (click)="cancelarFormularioHorario()"
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+
+        <div *ngIf="carregandoAgenda" class="agenda-feedback">
+          Carregando agenda...
+        </div>
+
+        <div
+          *ngIf="!carregandoAgenda && horariosAgenda.length === 0"
+          class="agenda-feedback"
+        >
+          Você ainda não cadastrou horários na agenda.
+        </div>
+
+        <div
+          class="agenda-list"
+          *ngIf="!carregandoAgenda && horariosAgenda.length > 0"
+        >
+          <article
+            class="agenda-item"
+            *ngFor="let horario of horariosAgenda"
+          >
+            <div class="agenda-item-info">
+              <strong>{{ horario.dia }}, {{ horario.data }}</strong>
+              <span>{{ horario.horario }}</span>
+            </div>
+
+            <div class="agenda-item-actions">
+              <span
+                class="agenda-status"
+                [ngClass]="'status-' + horario.status"
+              >
+                {{ horario.statusTexto }}
+              </span>
+
+              <button
+                *ngIf="horario.podeBloquear"
+                type="button"
+                class="agenda-block-button"
+                [disabled]="bloqueandoHorarioId === horario.id"
+                (click)="bloquearHorario(horario)"
+              >
+                {{
+                  bloqueandoHorarioId === horario.id
+                    ? 'Bloqueando...'
+                    : 'Bloquear'
+                }}
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="appointments-cta">
+        <div class="cta-icon" aria-hidden="true">▦</div>
+        <h2>Seus atendimentos</h2>
+        <p>
+          Acompanhe os alunos que contrataram seus serviços e confira os próximos horários.
+        </p>
+        <a routerLink="/profissional/meus-atendimentos" class="cta-link">
+          Ver meus atendimentos
+        </a>
+      </section>
+    </aside>
+  </div>
+</section>

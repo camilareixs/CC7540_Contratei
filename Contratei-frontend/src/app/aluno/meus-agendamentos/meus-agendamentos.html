@@ -1,0 +1,201 @@
+<div class="pagina-agendamentos">
+  <div class="container-agendamentos">
+
+    <header class="cabecalho">
+      <div>
+        <span class="etiqueta">SUA JORNADA DE APRENDIZADO</span>
+        <h1>Meus agendamentos</h1>
+        <p>Acompanhe suas aulas contratadas e consulte seu histórico.</p>
+      </div>
+
+      <a class="botao-buscar" routerLink="/aluno/buscar">
+        <span aria-hidden="true">＋</span>
+        Buscar profissionais
+      </a>
+    </header>
+
+    <section class="resumo-contadores">
+      <article class="contador">
+        <div class="contador-icone azul" aria-hidden="true">▣</div>
+        <div>
+          <span>Próximas aulas</span>
+          <strong>{{ proximos.length }}</strong>
+        </div>
+      </article>
+
+      <article class="contador">
+        <div class="contador-icone verde" aria-hidden="true">✓</div>
+        <div>
+          <span>Aulas confirmadas</span>
+          <strong>{{ totalConfirmados }}</strong>
+        </div>
+      </article>
+
+      <article class="contador">
+        <div class="contador-icone roxo" aria-hidden="true">◷</div>
+        <div>
+          <span>Total de agendamentos</span>
+          <strong>{{ agendamentos.length }}</strong>
+        </div>
+      </article>
+    </section>
+
+    <section class="painel-listagem">
+      <div class="cabecalho-listagem">
+        <div>
+          <h2>Suas aulas</h2>
+          <p>Consulte datas, horários e situação dos seus agendamentos.</p>
+        </div>
+
+        <div class="filtros" aria-label="Filtrar agendamentos">
+          <button
+            type="button"
+            [class.ativo]="filtro === 'todos'"
+            [attr.aria-pressed]="filtro === 'todos'"
+            (click)="selecionarFiltro('todos')"
+          >
+            Todos
+          </button>
+
+          <button
+            type="button"
+            [class.ativo]="filtro === 'proximos'"
+            [attr.aria-pressed]="filtro === 'proximos'"
+            (click)="selecionarFiltro('proximos')"
+          >
+            Próximos
+          </button>
+
+          <button
+            type="button"
+            [class.ativo]="filtro === 'historico'"
+            [attr.aria-pressed]="filtro === 'historico'"
+            (click)="selecionarFiltro('historico')"
+          >
+            Histórico
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="carregando" class="estado-vazio">
+        <p>Carregando seus agendamentos...</p>
+      </div>
+
+      <div *ngIf="!carregando && erro" class="estado-vazio" role="alert">
+        <h3>Não foi possível carregar os agendamentos</h3>
+        <p>{{ erro }}</p>
+        <button type="button" class="botao-buscar" (click)="carregarAgendamentos()">
+          Tentar novamente
+        </button>
+      </div>
+
+      <div
+        class="lista-agendamentos"
+        *ngIf="!carregando && !erro && agendamentosFiltrados.length > 0; else estadoVazio"
+      >
+        <article
+          class="card-agendamento"
+          *ngFor="let agendamento of agendamentosFiltrados"
+        >
+          <div class="data-card">
+            <span class="data-dia">{{ agendamento.data | date:'dd' }}</span>
+            <span class="data-mes">{{ agendamento.data | date:'MMM' }}</span>
+            <span class="data-ano">{{ agendamento.data | date:'yyyy' }}</span>
+          </div>
+
+          <div class="informacoes-agendamento">
+            <div class="titulo-agendamento">
+              <h3>{{ agendamento.especialidade }}</h3>
+              <span
+                class="status"
+                [ngClass]="classeStatus(agendamento.status)"
+              >
+                <span class="status-ponto"></span>
+                {{ agendamento.status }}
+              </span>
+            </div>
+
+            <div class="profissional-linha">
+              <span>
+                <strong>Nome do profissional: {{ agendamento.profissionalNome }}</strong>
+              </span>
+            </div>
+
+            <div class="detalhes-agendamento">
+              <span>◷ {{ agendamento.horario }}</span>
+
+              <span>
+                Duração:
+                {{ agendamento.duracaoMinutos ?? 0 }} min
+              </span>
+
+              <span>
+                <span class="detalhe-icone" aria-hidden="true">▣</span>
+                {{ agendamento.endereco || 'Endereço não informado' }}
+              </span>
+
+              <span class="valor">
+                R${{
+                  agendamento.valor
+                }}
+              </span>
+            </div>
+
+            <p
+              class="aviso-pendente"
+              *ngIf="agendamento.status === 'Pendente de pagamento'"
+            >
+              Este agendamento ainda aguarda a conclusão do pagamento.
+            </p>
+
+            <p
+              class="aviso-recusado"
+              *ngIf="agendamento.status === 'Pagamento recusado'"
+            >
+              O pagamento não foi aprovado. Esta aula não está confirmada.
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <ng-template #estadoVazio>
+        <div class="estado-vazio">
+          <div class="vazio-icone" aria-hidden="true">
+            <svg viewBox="0 0 64 64" fill="none">
+              <rect
+                x="11"
+                y="15"
+                width="42"
+                height="37"
+                rx="6"
+                stroke="currentColor"
+                stroke-width="2.5"
+              />
+              <path
+                d="M21 10v10M43 10v10M11 26h42"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+              />
+              <path
+                d="m25 38 5 5 10-10"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+          <h3>{{ tituloVazio }}</h3>
+          <p>{{ descricaoVazia }}</p>
+
+          <a class="botao-buscar botao-vazio" routerLink="/aluno/buscar">
+            Encontrar profissionais
+          </a>
+        </div>
+      </ng-template>
+    </section>
+
+  </div>
+</div>

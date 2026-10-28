@@ -1,0 +1,222 @@
+<div class="pagina-agendamento">
+  <div class="cabecalho-pagina">
+    <a routerLink="/aluno/buscar" class="link-voltar">
+      <span aria-hidden="true">←</span>
+      Voltar para profissionais
+    </a>
+
+    <h1>Agendar uma aula</h1>
+    <p>Escolha a data e o horário para sua aula presencial.</p>
+  </div>
+
+  <div *ngIf="!carregando && !profissional" class="mensagem-erro">
+    {{ erro || 'Não foi possível encontrar esse profissional.' }}
+    <a routerLink="/aluno/buscar">Ver profissionais disponíveis</a>
+  </div>
+
+  <div
+    *ngIf="profissional && !confirmado"
+    class="conteudo-agendamento"
+  >
+    <main class="formulario-agendamento">
+      <section class="secao-formulario">
+        <div class="titulo-secao">
+          <span class="numero-etapa">1</span>
+          <div>
+            <h2>Escolha a data</h2>
+            <p>Selecione o dia em que deseja ter sua aula.</p>
+          </div>
+        </div>
+
+        <label for="dataAula" class="rotulo-campo">
+          Data da aula
+        </label>
+
+        <input
+          id="dataAula"
+          type="date"
+          class="campo-data"
+          [min]="hoje"
+          [(ngModel)]="dataSelecionada"
+          (ngModelChange)="aoAlterarData($event)"
+        />
+      </section>
+
+      <section class="secao-formulario">
+        <div *ngIf="carregandoHorarios" class="texto-secundario">
+          Carregando horários disponíveis...
+        </div>
+
+        <div
+          *ngIf="!carregandoHorarios && horariosDisponiveis.length === 0"
+          class="texto-secundario"
+        >
+          Não há horários disponíveis para esta data.
+        </div>
+
+        <div class="grade-horarios" *ngIf="horariosDisponiveis.length > 0">
+          <button
+            *ngFor="let horario of horariosDisponiveis"
+            type="button"
+            class="botao-horario"
+            [class.selecionado]="horarioSelecionado?.id === horario.id"
+            [attr.aria-pressed]="horarioSelecionado?.id === horario.id"
+            (click)="selecionarHorario(horario)"
+          >
+            {{ horario.inicio }}
+          </button>
+        </div>
+      </section>
+
+      <!--<section class="secao-formulario">
+        <div class="titulo-secao">
+          <span class="numero-etapa">3</span>
+          <div>
+            <h2>Mensagem para o profissional</h2>
+            <p>Conte brevemente o que você precisa estudar.</p>
+          </div>
+        </div>
+
+        <label for="observacoes" class="rotulo-campo">
+          Mensagem (opcional)
+        </label>
+
+        <textarea
+          id="observacoes"
+          class="campo-observacoes"
+          rows="3"
+          maxlength="500"
+          placeholder="Ex.: Quero revisar o conteúdo para a próxima prova..."
+          [(ngModel)]="observacoes"
+        ></textarea>
+
+        <span class="contador-caracteres">
+          {{ observacoes.length }}/500 caracteres
+        </span>
+      </section>-->
+
+      <p *ngIf="erro" class="mensagem-erro" role="alert">
+        {{ erro }}
+      </p>
+
+      <button
+        type="button"
+        class="botao-confirmar"
+        (click)="confirmarAgendamento()"
+        [disabled]="salvandoAgendamento || carregando || !horarioSelecionado">
+
+        {{ salvandoAgendamento ? 'Confirmando agendamento...' : 'Confirmar agendamento' }}
+
+      </button>
+    </main>
+
+    <aside class="resumo-agendamento">
+      <h2>Resumo do agendamento</h2>
+
+      <div>
+          <div class="linha-resumo">
+            <span>Nome do profissional:</span>
+            <strong>{{ profissional.nome }}</strong>
+          </div>
+
+          <div class="linha-resumo">
+            <span>Área de atuação:</span>
+            <strong>{{ profissional.especialidade }}</strong>
+          </div>
+      </div>
+      
+      <div class="linha-resumo">
+        <span>Localização</span>
+        <strong>{{ profissional.localizacao }}</strong>
+      </div>
+
+      <div class="linha-resumo">
+        <span>Data</span>
+        <strong>
+          {{ dataSelecionada ? formatarData(dataSelecionada) : 'A definir' }}
+        </strong>
+      </div>
+
+      <div class="linha-resumo">
+        <span>Horário</span>
+        <strong>{{ horarioSelecionado?.inicio || 'A definir' }}</strong>
+      </div>
+
+      <div class="linha-resumo">
+        <span>Serviço</span>
+        <strong>{{ servicoSelecionado?.serviceName }}</strong>
+      </div>
+
+      <div class="linha-resumo">
+        <span>Valor do serviço</span>
+        <strong>
+          R$ {{ servicoSelecionado?.price }}
+        </strong>
+      </div>
+
+      <div class="linha-resumo">
+        <span>Duração</span>
+        <strong>{{ servicoSelecionado?.durationMinutes }} minutos</strong>
+      </div>
+    </aside>
+  </div>
+
+  <section *ngIf="profissional && confirmado" class="tela-sucesso">
+    <div class="icone-sucesso" aria-hidden="true">✓</div>
+
+    <h1>Solicitação de agendamento confirmada!</h1>
+
+    <p>
+      Você selecionou uma aula com
+      <strong>{{ profissional.nome }}</strong>.
+    </p>
+
+    <div class="resumo-sucesso">
+      <div class="linha-resumo">
+        <span>Profissional</span>
+        <strong>{{ profissional.nome }}</strong>
+      </div>
+
+      <div class="linha-resumo">
+        <span>Localização</span>
+        <strong>{{ profissional.localizacao }}</strong>
+      </div>
+
+      <div class="linha-resumo">
+        <span>Data</span>
+        <strong>{{ formatarData(dataSelecionada) }}</strong>
+      </div>
+
+      <div class="linha-resumo">
+        <span>Horário</span>
+        <strong>{{ horarioSelecionado }}</strong>
+      </div>
+
+      <div class="linha-resumo">
+        <span>Valor por hora</span>
+        <strong>
+          {{ profissional.valorHora | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+        </strong>
+      </div>
+    </div>
+
+    <p class="aviso-demonstracao">
+      Esta é uma confirmação demonstrativa. A solicitação ainda não está
+      conectada a um sistema de agendamentos.
+    </p>
+
+    <div class="acoes-sucesso">
+      <button
+        type="button"
+        class="botao-confirmar"
+        (click)="agendarOutroHorario()"
+      >
+        Fazer outro agendamento
+      </button>
+
+      <a routerLink="/aluno/buscar" class="botao-secundario">
+        Voltar para profissionais
+      </a>
+    </div>
+  </section>
+</div>

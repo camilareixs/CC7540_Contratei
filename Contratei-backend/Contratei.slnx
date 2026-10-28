@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Contratei.CrossCutting/Contratei.CrossCutting.csproj" />
+    <Project Path="src/Contratei.Data/Contratei.Data.csproj" />
+    <Project Path="src/Contratei.Domain/Contratei.Domain.csproj" />
+    <Project Path="src/Contratei.Service/Contratei.Service.csproj" />
+  </Folder>
+  <Folder Name="/src/Contratei.Api/">
+    <Project Path="src/Contratei.Api/Contratei.csproj" />
+  </Folder>
+</Solution>

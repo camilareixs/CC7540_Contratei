@@ -1,0 +1,248 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  color: #142b4f;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.register-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 16px;
+  background: #edf6fc;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 360px;
+  padding: 26px 24px 22px;
+  background: #fff;
+  border: 1px solid #e1eaf2;
+  border-radius: 13px;
+  box-shadow: 0 5px 12px rgb(20 43 79 / 10%);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #142b4f;
+  text-decoration: none;
+}
+
+.brand-icon {
+  display: flex;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+}
+
+.brand-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.brand-name {
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: -0.35px;
+}
+
+.register-header {
+  margin: 24px 0 15px;
+}
+
+.eyebrow {
+  margin: 0 0 7px;
+  color: #13a875;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.65px;
+}
+
+.register-header h1 {
+  margin: 0 0 5px;
+  color: #142b4f;
+  font-size: 23px;
+  font-weight: 850;
+  letter-spacing: -0.8px;
+  line-height: 1.12;
+}
+
+.subtitle {
+  margin: 0;
+  color: #8491a4;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.account-switch {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  min-height: 31px;
+  margin-bottom: 17px;
+  padding: 3px;
+  background: #e1f0fa;
+  border-radius: 7px;
+}
+
+.switch-option {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  min-height: 25px;
+  color: #52647d;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 650;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.switch-option.active {
+  color: #142b4f;
+  background: #fff;
+  border-color: #d5e6f5;
+  box-shadow: 0 1px 2px rgb(20 43 79 / 5%);
+}
+
+.switch-option:hover {
+  color: #142b4f;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.form-field label {
+  color: #263b59;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.form-field input {
+  width: 100%;
+  height: 33px;
+  padding: 0 10px;
+  color: #142b4f;
+  background: #f9fbfd;
+  border: 1px solid #dce7f1;
+  border-radius: 7px;
+  outline: none;
+  font: inherit;
+  font-size: 10px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.form-field input::placeholder {
+  color: #a0acbb;
+}
+
+.form-field input:focus {
+  background: #fff;
+  border-color: #739ac8;
+  box-shadow: 0 0 0 2px rgb(71 124 184 / 10%);
+}
+
+.field-error {
+  color: #bd3838;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.form-error,
+.form-success {
+  margin: 0 0 12px;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.form-error {
+  color: #bd3838;
+}
+
+.form-success {
+  color: #07865b;
+}
+
+.submit-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 34px;
+  padding: 8px 12px;
+  color: #fff;
+  background: #142b4f;
+  border: 1px solid #142b4f;
+  border-radius: 7px;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.submit-button:hover {
+  background: #203d67;
+}
+
+.submit-button:active {
+  transform: translateY(1px);
+}
+
+.submit-button:focus-visible,
+.switch-option:focus-visible,
+.brand:focus-visible,
+.login-link a:focus-visible {
+  outline: 2px solid #3d80cf;
+  outline-offset: 3px;
+}
+
+.login-link {
+  margin: 15px 0 0;
+  color: #8491a4;
+  text-align: center;
+  font-size: 9px;
+}
+
+.login-link a {
+  color: #142b4f;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 420px) {
+  .register-page {
+    align-items: center;
+    padding: 20px 14px;
+  }
+
+  .register-card {
+    max-width: 360px;
+    padding: 24px 21px 20px;
+  }
+}
+
+@media (max-height: 700px) {
+  .register-page {
+    align-items: flex-start;
+  }
+}
