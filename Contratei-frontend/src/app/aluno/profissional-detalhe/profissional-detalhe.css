@@ -1,0 +1,634 @@
+:host {
+  display: block;
+  min-height: 100%;
+  color: #172b4d;
+}
+
+.pagina-detalhe {
+  min-height: calc(100vh - 76px);
+  padding: 32px 24px 56px;
+  background: #f2f7fd;
+}
+
+.container-detalhe {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.voltar-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  color: #405778;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.voltar-link:hover {
+  color: #1769aa;
+}
+
+.voltar-link svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.layout-detalhe {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  align-items: start;
+  gap: 24px;
+}
+
+.conteudo-principal {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-width: 0;
+}
+
+.cartao {
+  background: #fff;
+  border: 1px solid #e4ebf4;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(29, 56, 91, 0.045);
+}
+
+.perfil-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  padding: 30px;
+}
+
+.foto-profissional {
+  width: 158px;
+  height: 158px;
+  flex: 0 0 158px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 14px;
+  background: #e7eef8;
+}
+
+.dados-cabecalho {
+  min-width: 0;
+}
+
+.etiqueta-especialidade {
+  display: inline-block;
+  padding: 6px 11px;
+  border-radius: 20px;
+  background: #eaf3ff;
+  color: #2366a8;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.dados-cabecalho h1 {
+  margin: 12px 0 10px;
+  color: #172b4d;
+  font-size: 29px;
+  font-weight: 750;
+  line-height: 1.2;
+}
+
+.avaliacao {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 17px;
+  color: #687b95;
+  font-size: 13px;
+}
+
+.avaliacao strong {
+  color: #243b5a;
+}
+
+.estrela {
+  color: #f3b52c;
+  font-size: 18px;
+}
+
+.informacao {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 9px 0 0;
+  color: #5e7089;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.informacao svg {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 17px;
+  fill: none;
+  stroke: #7890ad;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.secao-conteudo {
+  padding: 28px 30px;
+}
+
+.secao-conteudo h2 {
+  margin: 0 0 14px;
+  color: #1b3152;
+  font-size: 18px;
+  font-weight: 750;
+}
+
+.descricao {
+  margin: 0;
+  color: #62738a;
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.texto-secundario {
+  color: #697b92;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.secao-conteudo .texto-secundario {
+  margin: 0;
+}
+
+.linha-divisoria {
+  height: 1px;
+  margin: 25px 0;
+  background: #eaf0f6;
+}
+
+.lista-materias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.lista-materias span {
+  padding: 9px 12px;
+  border: 1px solid #dce8f5;
+  border-radius: 8px;
+  background: #f6f9fd;
+  color: #405875;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cartao-agendamento {
+  position: sticky;
+  top: 24px;
+  padding: 26px 24px;
+}
+
+.rotulo-preco {
+  color: #63768e;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.preco {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 7px;
+  margin-top: 8px;
+}
+
+.preco strong {
+  color: #172b4d;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+}
+
+.preco span {
+  color: #71829a;
+  font-size: 13px;
+}
+
+.cartao-agendamento > .texto-secundario {
+  margin: 12px 0 23px;
+}
+
+.beneficios {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 19px 0;
+  border-top: 1px solid #e9eff6;
+  border-bottom: 1px solid #e9eff6;
+}
+
+.beneficios > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #506680;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.icone-beneficio {
+  display: inline-flex;
+  width: 21px;
+  height: 21px;
+  flex: 0 0 21px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e7f7ef;
+  color: #23965c;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.botao-agendar {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 22px;
+  padding: 12px 16px;
+  border-radius: 9px;
+  background: #17365f;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.botao-agendar:hover {
+  transform: translateY(-1px);
+  background: #225080;
+}
+
+.botao-agendar svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.nota-agendamento {
+  margin: 13px 0 0;
+  color: #8492a5;
+  font-size: 11px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.estado-vazio {
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.icone-vazio {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: #eaf3ff;
+  color: #2366a8;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.estado-vazio h1 {
+  margin: 0 0 10px;
+  font-size: 22px;
+}
+
+.estado-vazio p {
+  margin: 0 auto 22px;
+  color: #687b95;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.botao-voltar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border-radius: 8px;
+  background: #17365f;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* Avatar sem imagem */
+.avatar-profissional {
+  width: 92px;
+  height: 92px;
+  min-width: 92px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e8edff;
+  color: #3448a5;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+/* Lista de horários */
+.lista-horarios {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.horario-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.horario-status {
+  color: #16794b;
+  background: #e8f7ee;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Estados de carregamento e erro */
+.estado-vazio {
+  text-align: center;
+  padding: 36px 24px;
+}
+
+.estado-vazio h1 {
+  margin-bottom: 12px;
+}
+
+.estado-vazio p {
+  margin-bottom: 20px;
+}
+
+button.botao-voltar {
+  cursor: pointer;
+  font: inherit;
+  margin: 0 6px 8px;
+}
+
+@media (max-width: 900px) {
+  .layout-detalhe {
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: 18px;
+  }
+
+  .perfil-cabecalho {
+    gap: 20px;
+    padding: 24px;
+  }
+
+  .foto-profissional {
+    width: 125px;
+    height: 145px;
+    flex-basis: 125px;
+  }
+
+  .dados-cabecalho h1 {
+    font-size: 25px;
+  }
+
+  .cartao-agendamento {
+    padding: 22px 19px;
+  }
+}
+
+@media (max-width: 700px) {
+  .pagina-detalhe {
+    padding: 22px 16px 40px;
+  }
+
+  .layout-detalhe {
+    grid-template-columns: 1fr;
+  }
+
+  .perfil-cabecalho {
+    align-items: flex-start;
+    gap: 17px;
+    padding: 20px;
+  }
+
+  .foto-profissional {
+    width: 105px;
+    height: 125px;
+    flex-basis: 105px;
+    border-radius: 11px;
+  }
+
+  .dados-cabecalho h1 {
+    margin-top: 10px;
+    font-size: 22px;
+  }
+
+  .avaliacao {
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 12px;
+    font-size: 12px;
+  }
+
+  .informacao {
+    align-items: flex-start;
+    font-size: 12px;
+  }
+
+  .secao-conteudo {
+    padding: 23px 20px;
+  }
+
+  .cartao-agendamento {
+    position: static;
+    padding: 24px 20px;
+  }
+}
+
+@media (max-width: 420px) {
+  .perfil-cabecalho {
+    flex-direction: column;
+  }
+
+  .foto-profissional {
+    width: 112px;
+    height: 112px;
+    flex-basis: auto;
+    border-radius: 50%;
+  }
+
+  .dados-cabecalho h1 {
+    font-size: 24px;
+  }
+
+  .preco strong {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 600px) {
+  .perfil-cabecalho {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .avatar-profissional {
+    width: 72px;
+    height: 72px;
+    min-width: 72px;
+    font-size: 1.8rem;
+  }
+
+  .horario-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.secao-servicos {
+  margin-top: 32px;
+}
+
+.cabecalho-servicos {
+  margin-bottom: 20px;
+}
+
+.cabecalho-servicos h2 {
+  margin: 0 0 8px;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.cabecalho-servicos p {
+  margin: 0;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+.lista-servicos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.card-servico {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 22px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.informacoes-servico h3 {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.descricao-servico {
+  margin: 0 0 14px;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+.duracao-servico {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.preco-servico {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.preco-servico span {
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.preco-servico strong {
+  color: #0f172a;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.botao-contratar-servico {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 18px;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.botao-contratar-servico:hover {
+  background: #1d4ed8;
+}
+
+@media (min-width: 768px) {
+  .card-servico {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: 24px;
+  }
+
+  .informacoes-servico {
+    grid-row: span 2;
+  }
+
+  .preco-servico {
+    text-align: right;
+  }
+
+  .botao-contratar-servico {
+    min-width: 180px;
+  }
+}

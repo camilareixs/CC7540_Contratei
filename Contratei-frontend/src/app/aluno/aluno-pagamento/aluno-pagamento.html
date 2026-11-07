@@ -1,0 +1,212 @@
+<div class="pagina-pagamento">
+  <div class="container-pagamento">
+
+    <a class="link-voltar" routerLink="/aluno/buscar">
+      <span aria-hidden="true">←</span>
+      Voltar para profissionais
+    </a>
+
+    <header class="cabecalho-pagina">
+      <span class="etiqueta">FINALIZAÇÃO DO AGENDAMENTO</span>
+      <h1>Pagamento</h1>
+      <p>Finalize o pagamento para confirmar sua aula.</p>
+    </header>
+
+    <div
+      class="mensagem-resultado"
+      *ngIf="resultado === 'aprovado'"
+      role="status"
+    >
+      <div class="icone-resultado sucesso" aria-hidden="true">✓</div>
+      <h2>Pagamento aprovado!</h2>
+      <p>
+        Seu agendamento com
+        <strong>{{ agendamento?.profissionalNome }}</strong>
+        está confirmado.
+      </p>
+      <span class="status-confirmado">Agendamento confirmado</span>
+      <button class="botao-principal" type="button" (click)="finalizar()">
+        Ir para minha área
+      </button>
+    </div>
+
+    <div
+      class="mensagem-resultado"
+      *ngIf="resultado === 'recusado'"
+      role="alert"
+    >
+      <div class="icone-resultado recusado" aria-hidden="true">!</div>
+      <h2>Pagamento não aprovado</h2>
+      <p>
+        Não foi possível aprovar o pagamento. Seu agendamento
+        ainda não está confirmado.
+      </p>
+      <p class="texto-secundario">
+        Você pode tentar novamente. A disponibilidade do horário
+        depende do prazo de reserva definido pelo sistema.
+      </p>
+      <button
+        class="botao-principal"
+        type="button"
+        (click)="tentarNovamente()"
+      >
+        Tentar novamente
+      </button>
+      <button
+        class="botao-secundario"
+        type="button"
+        (click)="voltarParaAgendamento()"
+      >
+        Voltar ao profissional
+      </button>
+    </div>
+
+    <div class="grade-pagamento" *ngIf="!resultado">
+      <main class="cartao-pagamento">
+        <div class="titulo-secao">
+          <span class="numero-etapa">1</span>
+          <div>
+            <h2>Forma de pagamento</h2>
+            <p>Escolha como deseja pagar.</p>
+          </div>
+        </div>
+
+        <div class="opcoes-pagamento">
+          <button
+            type="button"
+            class="opcao-pagamento"
+            [class.selecionada]="formaPagamento === 'pix'"
+            [disabled]="processando"
+            (click)="selecionarForma('pix')"
+          >
+            <span class="icone-pagamento pix-icone" aria-hidden="true">◇</span>
+            <span class="texto-opcao">
+              <strong>Pix</strong>
+              <small>Aprovação simulada</small>
+            </span>
+            <span class="radio-visual" aria-hidden="true"></span>
+          </button>
+
+          <button
+            type="button"
+            class="opcao-pagamento"
+            [class.selecionada]="formaPagamento === 'cartao'"
+            [disabled]="processando"
+            (click)="selecionarForma('cartao')"
+          >
+            <span class="icone-pagamento cartao-icone" aria-hidden="true">▤</span>
+            <span class="texto-opcao">
+              <strong>Cartão de crédito</strong>
+              <small>Dados fictícios para teste</small>
+            </span>
+            <span class="radio-visual" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <section class="formulario-cartao" *ngIf="formaPagamento === 'cartao'">
+          <h3>Dados do cartão</h3>
+          <p class="aviso-teste">
+            Ambiente de demonstração. Não informe dados de um cartão real.
+          </p>
+
+          <label for="nomeCartao">Nome impresso no cartão</label>
+          <input
+            id="nomeCartao"
+            name="nomeCartao"
+            type="text"
+            [(ngModel)]="nomeCartao"
+            placeholder="NOME SOBRENOME"
+            autocomplete="off"
+            [disabled]="processando"
+          />
+
+          <label for="numeroCartao">Número do cartão</label>
+          <input
+            id="numeroCartao"
+            name="numeroCartao"
+            type="text"
+            [(ngModel)]="numeroCartao"
+            placeholder="Somente números"
+            inputmode="numeric"
+            maxlength="19"
+            autocomplete="off"
+            [disabled]="processando"
+          />
+
+          <div class="campos-duplos">
+            <div>
+              <label for="validadeCartao">Validade</label>
+              <input
+                id="validadeCartao"
+                name="validadeCartao"
+                type="text"
+                [(ngModel)]="validadeCartao"
+                placeholder="MM/AA"
+                maxlength="5"
+                autocomplete="off"
+                [disabled]="processando"
+              />
+            </div>
+
+            <div>
+              <label for="cvvCartao">CVV</label>
+              <input
+                id="cvvCartao"
+                name="cvvCartao"
+                type="password"
+                [(ngModel)]="cvvCartao"
+                placeholder="123"
+                inputmode="numeric"
+                maxlength="4"
+                autocomplete="off"
+                [disabled]="processando"
+              />
+            </div>
+          </div>
+
+          <p class="dica-cartao">
+            Para a simulação, preencha os campos com dados fictícios válidos
+            no formato indicado.
+          </p>
+        </section>
+
+        <section class="informacao-pix" *ngIf="formaPagamento === 'pix'">
+          <div class="pix-ilustracao" aria-hidden="true">
+            <span>◇</span>
+          </div>
+          <h3>Pagamento via Pix</h3>
+          <p>
+            Ao clicar em pagar, vamos simular automaticamente
+            a resposta do pagamento.
+          </p>
+          <div class="pix-etiqueta">Pix demonstrativo</div>
+        </section>
+
+        <div class="aviso-erro" *ngIf="mensagemErro" role="alert">
+          {{ mensagemErro }}
+        </div>
+
+        <button
+          class="botao-principal botao-pagar"
+          type="button"
+          (click)="pagar()"
+          [disabled]="processando"
+        >
+          <span *ngIf="!processando">
+            Pagar {{ valorFormatado }}
+          </span>
+          <span *ngIf="processando" class="texto-processando">
+            <span class="spinner" aria-hidden="true"></span>
+            Processando pagamento...
+          </span>
+        </button>
+
+        <p class="nota-seguranca">
+          <span aria-hidden="true">ⓘ</span>
+          Simulação de pagamento. Nenhuma cobrança será realizada.
+        </p>
+      </main>
+    </div>
+
+  </div>
+</div>

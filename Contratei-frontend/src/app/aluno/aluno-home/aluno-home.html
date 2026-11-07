@@ -1,0 +1,144 @@
+<section class="home-page">
+  <section class="hero">
+    <p class="eyebrow">ÁREA DO ALUNO</p>
+
+    <h1>
+      Encontre o profissional
+      <br />
+      ideal para você!
+    </h1>
+
+    <p class="hero-description">
+      Aprenda com especialistas e dê o próximo passo nos seus estudos
+    </p>
+
+    <!--<form class="search-form" (ngSubmit)="buscarProfissionais()">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="10.8" cy="10.8" r="6.3" />
+        <path d="m16 16 4 4" />
+      </svg>
+
+      <input
+        type="search"
+        name="termoBusca"
+        [(ngModel)]="termoBusca"
+        placeholder="O que você está procurando?"
+        aria-label="Buscar profissionais por área ou especialidade"
+      />
+
+      <button type="submit">Buscar profissionais</button>
+    </form>-->
+  </section>
+
+  <section class="quick-links" aria-label="Acessos rápidos">
+    <a class="quick-card" routerLink="/aluno/buscar">
+      <span class="quick-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <circle cx="10.8" cy="10.8" r="6.3" />
+          <path d="m16 16 4 4" />
+        </svg>
+      </span>
+
+      <h2>Buscar profissionais</h2>
+      <p>Encontre especialistas por área, preço e localização.</p>
+    </a>
+
+    <a class="quick-card" routerLink="/aluno/meus-agendamentos">
+      <span class="quick-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <rect x="4" y="6" width="16" height="14" rx="2" />
+          <path d="M8 3v6M16 3v6M4 11h16" />
+        </svg>
+      </span>
+
+      <h2>Meus agendamentos</h2>
+      <p>Acompanhe suas próximas aulas e seus horários.</p>
+    </a>
+  </section>
+
+  <section class="featured-section">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow section-eyebrow">SELEÇÃO PARA VOCÊ</p>
+        <h2>Profissionais em destaque</h2>
+      </div>
+
+      <a routerLink="/aluno/buscar" class="see-all">
+        Ver todos
+      </a>
+    </div>
+
+    
+<div *ngIf="carregando" class="professionals-feedback">
+  Carregando profissionais...
+</div>
+
+<div
+  *ngIf="!carregando && erro"
+  class="professionals-feedback professionals-error"
+  role="alert"
+>
+  <p>{{ erro }}</p>
+
+  <button
+    type="button"
+    class="view-profile"
+    (click)="carregarProfissionais()"
+  >
+    Tentar novamente
+  </button>
+</div>
+
+<div
+  class="professional-grid"
+  *ngIf="!carregando && !erro && profissionais.length > 0"
+>
+  <article
+    class="professional-card"
+    *ngFor="let profissional of profissionais"
+  >
+    <div class="professional-info">
+      <p class="professional-specialty">
+        {{ profissional.especialidade }}
+      </p>
+
+      <h3>{{ profissional.nome }}</h3>
+
+      <p class="professional-location">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
+          <circle cx="12" cy="10" r="2.2" />
+        </svg>
+
+        {{ profissional.localizacao }}
+      </p>
+
+      <p class="professional-description">
+        {{ profissional.descricao }}
+      </p>
+
+      <div class="professional-footer">
+        <p class="price">
+          {{ formatarPreco(profissional.valorHora) }}
+          <span *ngIf="profissional.valorHora !== null">/serviço</span>
+        </p>
+
+        <a
+          [routerLink]="['/aluno/profissional', profissional.id]"
+          class="view-profile"
+        >
+          Ver perfil
+        </a>
+      </div>
+    </div>
+  </article>
+</div>
+
+<div
+  *ngIf="!carregando && !erro && profissionais.length === 0"
+  class="professionals-feedback"
+>
+  Nenhum profissional ativo foi encontrado.
+</div>
+  </section>
+</section>

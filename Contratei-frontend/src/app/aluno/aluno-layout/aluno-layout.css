@@ -1,0 +1,161 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  color: #142b4f;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.student-shell {
+  min-height: 100vh;
+  background: #f8fbfd;
+}
+
+.topbar {
+  width: 100%;
+  height: 56px;
+  background: #fff;
+  border-bottom: 1px solid #e5edf4;
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: min(100% - 40px, 1120px);
+  height: 100%;
+  margin: 0 auto;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  color: #142b4f;
+  text-decoration: none;
+}
+
+.brand-icon {
+  display: flex;
+  width: 22px;
+  height: 22px;
+}
+
+.brand-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.brand-name {
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: -0.35px;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 23px;
+  height: 100%;
+}
+
+.main-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 100%;
+  color: #65758b;
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 11px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  color: #142b4f;
+}
+
+.main-nav a.active {
+  border-bottom-color: #142b4f;
+}
+
+.main-nav svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.user-greeting {
+  flex-shrink: 0;
+  color: #142b4f;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.user-greeting:hover {
+  color: #2563eb;
+}
+
+.page-content {
+  width: min(100% - 40px, 1120px);
+  margin: 0 auto;
+  padding: 24px 0 48px;
+}
+
+@media (max-width: 850px) {
+  .topbar {
+    height: auto;
+  }
+
+  .topbar-inner {
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    padding: 14px 0 0;
+  }
+
+  .main-nav {
+    order: 3;
+    justify-content: flex-start;
+    width: 100%;
+    height: 42px;
+    gap: 20px;
+    overflow-x: auto;
+  }
+
+  .user-greeting {
+    margin-left: auto;
+  }
+
+  .page-content {
+    padding-top: 20px;
+  }
+}
+
+@media (max-width: 520px) {
+  .topbar-inner,
+  .page-content {
+    width: calc(100% - 28px);
+  }
+
+  .main-nav {
+    gap: 18px;
+  }
+
+  .main-nav a {
+    font-size: 10px;
+  }
+}

@@ -1,0 +1,156 @@
+<section class="appointments-page">
+  <div class="page-heading">
+    <div>
+      <span class="eyebrow">ÁREA DO PROFISSIONAL</span>
+      <h1>Meus atendimentos</h1>
+      <p>Acompanhe suas contratações e organize sua agenda</p>
+    </div>
+
+    <!--
+    <button
+      type="button"
+      class="refresh-button"
+      (click)="atualizarLista()"
+      aria-label="Atualizar lista de atendimentos"
+    >
+      <span aria-hidden="true">↻</span>
+      Atualizar
+    </button>-->
+  </div>
+
+  <div class="summary-grid">
+    <article class="summary-card">
+      <div class="summary-icon blue">▦</div>
+      <div>
+        <span>Próximos atendimentos</span>
+        <strong>{{ totalConfirmados }}</strong>
+        <small>Atendimentos futuros</small>
+      </div>
+    </article>
+
+    <article class="summary-card">
+      <div class="summary-icon green">✓</div>
+      <div>
+        <span>Histórico</span>
+        <strong>{{ historicoAtendimentos.length }}</strong>
+        <small>Atendimentos anteriores e encerrados</small>
+      </div>
+    </article>
+  </div>
+
+  <section class="appointments-panel">
+    <div class="panel-heading">
+      <div>
+        <h2>Sua agenda</h2>
+        <p>Consulte os detalhes de cada contratação.</p>
+      </div>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Tipo de atendimento">
+      <button
+        type="button"
+        role="tab"
+        [attr.aria-selected]="abaAtual === 'proximos'"
+        [class.selected]="abaAtual === 'proximos'"
+        (click)="selecionarAba('proximos')"
+      >
+        Próximos
+        <span class="tab-count">{{ proximosAtendimentos.length }}</span>
+      </button>
+
+      <button
+        type="button"
+        role="tab"
+        [attr.aria-selected]="abaAtual === 'historico'"
+        [class.selected]="abaAtual === 'historico'"
+        (click)="selecionarAba('historico')"
+      >
+        Histórico
+        <span class="tab-count">{{ historicoAtendimentos.length }}</span>
+      </button>
+    </div>
+
+    <div *ngIf="carregando" class="empty-state">
+  <p>Carregando seus atendimentos...</p>
+</div>
+
+<div *ngIf="!carregando && erro" class="empty-state" role="alert">
+  <h3>Não foi possível carregar a agenda</h3>
+  <p>{{ erro }}</p>
+
+  <button
+    type="button"
+    class="refresh-button"
+    (click)="atualizarLista()"
+  >
+    Tentar novamente
+  </button>
+</div>
+
+<div
+  *ngIf="!carregando && !erro && atendimentosExibidos.length > 0;
+         else listaVazia"
+>
+  <article
+    class="appointment-card"
+    *ngFor="let atendimento of atendimentosExibidos"
+  >
+    <div class="appointment-main">
+      <div class="student-avatar" aria-hidden="true">
+        {{ atendimento.aluno.charAt(0).toUpperCase() }}
+      </div>
+
+      <div class="appointment-info">
+        <h3>{{ atendimento.aluno }}</h3>
+        <p class="service-name">{{ atendimento.servico }}</p>
+        <p class="appointment-price"> R$ {{ atendimento.preco }}</p>
+
+        <div class="appointment-details">
+          <span>
+            <span class="detail-icon" aria-hidden="true">▦</span>
+            {{ atendimento.dataTexto }}
+          </span>
+
+          <span>
+            <span class="detail-icon" aria-hidden="true">◷</span>
+            {{ atendimento.horario }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="appointment-status">
+      <span class="status-badge" [ngClass]="atendimento.statusClasse">
+        <span class="status-dot"></span>
+        {{ atendimento.status }}
+      </span>
+    </div>
+  </article>
+</div>
+
+    <ng-template #listaVazia>
+      <div
+        class="empty-state"
+        *ngIf="!carregando && !erro && atendimentosExibidos.length === 0"
+      >
+        <div class="empty-icon" aria-hidden="true">▦</div>
+
+        <h3>
+          {{
+            abaAtual === 'proximos'
+              ? 'Nenhum atendimento agendado'
+              : 'Nenhum registro no histórico'
+          }}
+        </h3>
+
+        <p>
+          {{
+            abaAtual === 'proximos'
+              ? 'Quando um aluno contratar seu serviço e o pagamento for aprovado, o atendimento confirmado aparecerá aqui.'
+              : 'Os atendimentos anteriores e encerrados aparecerão aqui.'
+          }}
+        </p>
+      </div>
+    </ng-template>
+  </section>
+</section>

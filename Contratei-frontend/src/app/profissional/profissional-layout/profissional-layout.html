@@ -1,0 +1,64 @@
+<div class="profissional-app">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a
+        class="brand"
+        routerLink="/profissional/home"
+        aria-label="CONTRATEI - início do profissional"
+      >
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" fill="currentColor" />
+            <path
+              d="m5.5 10 6.5-3.5 6.5 3.5-6.5 3.5L5.5 10Z"
+              stroke="white"
+              stroke-width="1.2"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M8.5 11.5v3c2.3 1.8 4.7 1.8 7 0v-3"
+              stroke="white"
+              stroke-width="1.2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </span>
+
+        <span class="brand-name">CONTRATEI</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Navegação principal">
+        <a
+          routerLink="/profissional/home"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          Início
+        </a>
+
+        <a
+          routerLink="/profissional/meus-atendimentos"
+          routerLinkActive="active"
+        >
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="4" y="6" width="16" height="14" rx="2" />
+            <path d="M8 3v6M16 3v6M4 11h16" />
+          </svg>
+          Meus atendimentos
+        </a>
+      </nav>
+
+      <a
+        class="user-greeting"
+        routerLink="/profissional/home"
+        aria-label="Acessar meu perfil profissional"
+      >
+        Olá, {{ nomeProfissional }}
+      </a>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
